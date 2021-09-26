@@ -1,0 +1,10 @@
+Karim;161/a, Jahanara Garden,Green Road;60-545605565;ONE;savings;Green Road Br;AB Bank;5315-7620-0919-3008;
+Falgun Murshid;mohakhali c/a, medona tower, mohakhali, 5050;02-8831810;TWO;savings;Mohakhali Br;City Bank;5315-7400-0748-0585;
+Hemanga Sinha;House # 2, Road # 11, Progati Sarani, Marun Baddah;02-8829835;THREE;savings;Badda Br;Dutch Bangla Bank;5315-7521-6124-7601;
+Dristi Abed;63, court house street (ground floor), p.s. # kotwali, 1100;017-11813507;THREE;savings;Sonali Bank;Kotwali Br;5315-7528-6978-7957;
+Gargi Panja;198/3, shantinagar, 1217;02 8358067;FOUR;savings;Shantinagar Br;UCB Bank;5315-7686-0499-0631;
+Dwijendranath Talukdar;66/20-b, Shahid Nazrul Islam Road, Hatkhola, Tikatuly;02-7175065;FOUR;savings;Tikatuly Br;IFIC Bank;5127-1768-9141-6815;
+Aghor Kotal;Cham # Lab Aid, House # 1, Road # 4, Dhanmondi;02-8617372;FIVE;savings;Dhanmondi Br;SIBL Bank;5288-7745-2086-4077;
+Dwijendra  Ranjan;chittagong medical college, chittagong, chittagong, 42013;031 657462;FIVE;savings; Medical Br;Exim bank;5218-4157-7932-1519;
+Arjun Pramanick;177 Azimpur Road, Dhaka;01818612158;SIX;savings;Azimpur Br;Midow Bank;5177-4382-1524-7402;
+Brijmohan Khan;lane #21, new d.o.h.s, mohakhali, 12033;01713032766;SIX;savings;Mohakhali Br;Evaly Bank;5522-0087-9651-7507;

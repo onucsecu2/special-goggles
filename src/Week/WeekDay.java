@@ -3,11 +3,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class WeekDay {
-
-    public static boolean validate(short n){
-        return n >= 1 && n <= 31;
-    }
-
     public static void main(String[] args) {
 
         String[] days = { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
@@ -28,4 +23,8 @@ public class WeekDay {
             }
         }
     }
+    public static boolean validate(short n){
+        return n >= 1 && n <= 31;
+    }
+
 }
