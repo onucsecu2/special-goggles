@@ -56,18 +56,22 @@ public class SecondTask {
                 Profile profile = new Profile(employeeObj, bankAccount);
                 profileList.add(profile);
             }
+        }catch (FileNotFoundException e) {
+            ExceptionMod.displayExceptionAbstractLabel(e);
         }
-        catch (ArrayIndexOutOfBoundsException e){
-            System.err.println(e);
+        catch (IndexOutOfBoundsException e) {
+            ExceptionMod.displayExceptionAbstractLabel(e);
         }
         catch (IOException e) {
-            System.err.println(e);
+            ExceptionMod.displayExceptionAbstractLabel(e);
         }
         finally {
             try {
                 br.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (NullPointerException e) {
+                ExceptionMod.displayExceptionAbstractLabel(e);
             }
         }
 
@@ -166,14 +170,14 @@ public class SecondTask {
             writer = Files.newBufferedWriter(Path.of(path), charset);
             writer.write(String.valueOf(sb), 0, sb.length());
         } catch (FileAlreadyExistsException e){
-            System.err.format("FileAlreadyExistsException: %s%n", e);
-        } catch (IOException x) {
-            System.err.format("IOException: %s%n", x);
+            ExceptionMod.displayExceptionAbstractLabel(e);
+        } catch (IOException e) {
+            ExceptionMod.displayExceptionAbstractLabel(e);
         } finally {
             try {
                 writer.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                ExceptionMod.displayExceptionAbstractLabel(e);
             }
         }
         System.out.println("Content of StringBuffer written to File.");
@@ -188,10 +192,10 @@ public class SecondTask {
             Profile profile = getSpecificProfile();
             transferFund(company.getBankAccount(), profile.getBankAccount(), profile.getEmployee().getSalary());
         }catch (IndexOutOfBoundsException e){
-            System.err.println(e);
+            ExceptionMod.displayExceptionAbstractLabel(e);
         }
-        catch (InputMismatchException e){
-            System.err.println(e);
+        catch (InputMismatchException e) {
+            ExceptionMod.displayExceptionAbstractLabel(e);
         }finally {
             showCompanyBalance();
         }
@@ -223,7 +227,7 @@ public class SecondTask {
      * transfer salary from the company bank account to all employees account once;
      */
     private static void transferFundAll() {
-        for(Profile profile : profileList){
+        for(Profile profile : profileList) {
             transferFund(company.getBankAccount(), profile.getBankAccount(), profile.getEmployee().getSalary());
         }
         showCompanyBalance();
@@ -234,7 +238,7 @@ public class SecondTask {
      */
     private static void showEmployeesList() {
         int index = 0;
-        for(Profile profile : profileList){
+        for(Profile profile : profileList) {
             System.out.println(index+". " + profile.getEmployee().getName());
             index++;
         }
@@ -270,7 +274,7 @@ public class SecondTask {
             companyAccount.subtract(amount);
             employeeAccount.addBalance(amount);
         } catch (BalanceInsufficientException e) {
-            System.err.println(e);
+            ExceptionMod.displayExceptionAbstractLabel(e);
         }
 
     }
