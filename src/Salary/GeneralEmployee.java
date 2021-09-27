@@ -5,6 +5,7 @@ public class GeneralEmployee extends Employee {
     public Grade grade;
     public BigDecimal salary;
     /**
+     *
      * @param name string name of the employee
      * @param address string address of the employee
      * @param mobile string mobile number of employee
@@ -36,7 +37,8 @@ public class GeneralEmployee extends Employee {
      * @return Bigdecimal salary of the employee
      */
     private BigDecimal calculateSalary(Grade grade) {
-        BigDecimal basic = Company.INCREMENT_PER_GRADE.multiply(new BigDecimal(grade.getGradeValue()));
+        BigDecimal basic = SecondTask.company.basic.add(Company.INCREMENT_PER_GRADE
+                .multiply(new BigDecimal(grade.getGradeValue())));
         return basic.add(basic.multiply(Company.HOUSE_RENT_PERCENTAGE)).add(basic.multiply(Company.MEDICAL_ALLOWANCE_PERCENTAGE));
     }
 }

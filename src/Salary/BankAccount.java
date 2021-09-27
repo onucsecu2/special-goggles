@@ -6,6 +6,15 @@ public class BankAccount implements Transaction{
     public String name, address, accountType, branchName, bankName, accountNumber;
     private BigDecimal currentBalance;
 
+    /**
+     * Constructor for Employees
+     * @param name name of employee
+     * @param address address of employee
+     * @param accountType account type of employee ie: savings
+     * @param branchName branch name of bank
+     * @param bankName bank name
+     * @param accountNumber account number
+     */
     public BankAccount(String name, String address, String accountType,
                        String branchName, String bankName, String accountNumber) {
         this.name = name;
@@ -16,6 +25,11 @@ public class BankAccount implements Transaction{
         this.accountNumber = accountNumber;
         this.currentBalance = BigDecimal.ZERO;
     }
+
+    /**
+     * Constructor for company bank Account
+     * @param currentBalance current balance of the company
+     */
     public BankAccount(BigDecimal currentBalance) {
         this.currentBalance = currentBalance;
     }
@@ -45,6 +59,9 @@ public class BankAccount implements Transaction{
 
 }
 
+/**
+ * Custom Exception for insufficient bank balance
+ */
 class BalanceInsufficientException extends Exception{
     public BalanceInsufficientException(String message) {
         super(message);

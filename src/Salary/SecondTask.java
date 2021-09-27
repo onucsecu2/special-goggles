@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class SecondTask {
 
     private static List<Profile> profileList = new ArrayList<>();
-    private static Company company;
+    public static Company company;
     public static void main(String[] args) {
         readBasicData();
         loadEmployees();
@@ -28,6 +28,10 @@ public class SecondTask {
         }
     }
 
+
+    /**
+     * load 10 employees data as described from a file for convenient
+     */
     private static void loadEmployees() {
         BufferedReader br = null;
         try {
@@ -69,6 +73,9 @@ public class SecondTask {
 
     }
 
+    /**
+     *  its a interactive menu dispalying in the console with command list and take input command and execute
+     */
     private static void ShowInteractiveMenu() {
         System.out.println("______________________________________________");
         System.out.println("Enter the following key:");
@@ -91,17 +98,20 @@ public class SecondTask {
                 transferFunds();
                 break;
             case 'G':
-                generateReport();
+                generateEmployeeReport();
                 break;
             case 'P':
-                generatePayrollReport();
+                generateBalanceReport();
                 break;
             case 'Q':
                 break;
         }
     }
 
-    private static void generatePayrollReport() {
+    /**
+     * generate report file of company's current balance and total paid
+     */
+    private static void generateBalanceReport() {
         StringBuffer sb = new StringBuffer();
         String separator = ";";
         String lineSeparator = "\n";
@@ -124,7 +134,10 @@ public class SecondTask {
         writeToFile(path, sb);
     }
 
-    private static void generateReport() {
+    /**
+     *  generate report file of the employees information
+     */
+    private static void generateEmployeeReport() {
         StringBuffer sb = new StringBuffer();
         String separator = ";";
         String lineSeparator = "\n";
@@ -137,10 +150,15 @@ public class SecondTask {
             sb.append(employee.getSalary());
             sb.append(lineSeparator);
         }
-        String path = "src/Salary/Name_of_employee.csv";
+        String path = "src/Salary/employee_report.csv";
         writeToFile(path, sb);
     }
 
+    /**
+     * write to a file
+     * @param path path of the file
+     * @param sb what to write in the file
+     */
     private static void writeToFile(String path, StringBuffer sb) {
         Charset charset = StandardCharsets.US_ASCII;
         BufferedWriter writer =null;
@@ -161,6 +179,9 @@ public class SecondTask {
         System.out.println("Content of StringBuffer written to File.");
     }
 
+    /**
+     * transfer amount from company bank account to employee bank account
+     */
     private static void transferFunds () {
 
         try {
@@ -176,11 +197,21 @@ public class SecondTask {
         }
     }
 
+    /**
+     *  Display company's current balance in the console after performing transaction operation
+     */
     private static void showCompanyBalance() {
         System.out.println("Remaining Balance : "+company.getBankAccount().queryBalance());
         System.out.println("----Transfer Completed----");
     }
 
+    /**
+     * Get the profile of specific employee according to the index number taking from the console
+     *  while displaying the employee list
+     * @return Profile object of the employee of the index.
+     * @throws InputMismatchException Console read expect an int input otherwise can't proceed
+     * @throws IndexOutOfBoundsException if the provided index number is out of range of the employee list
+     */
     private static Profile getSpecificProfile() throws InputMismatchException,IndexOutOfBoundsException  {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Index Number from the Employee List :");
@@ -188,6 +219,9 @@ public class SecondTask {
         return profileList.get(index-1);
     }
 
+    /**
+     * transfer salary from the company bank account to all employees account once;
+     */
     private static void transferFundAll() {
         for(Profile profile : profileList){
             transferFund(company.getBankAccount(), profile.getBankAccount(), profile.getEmployee().getSalary());
@@ -195,6 +229,9 @@ public class SecondTask {
         showCompanyBalance();
     }
 
+    /**
+     *  show the list of the employees
+     */
     private static void showEmployeesList() {
         int index = 0;
         for(Profile profile : profileList){
@@ -203,6 +240,9 @@ public class SecondTask {
         }
     }
 
+    /**
+     * read the basic inputs (Basic salary  and the initial bank balance of company from the console
+     */
     private static void readBasicData() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Basic Salary of the Lowest Grade: ");
@@ -216,6 +256,15 @@ public class SecondTask {
 
     }
 
+    /**
+     * Transfer balance from an account to another account.
+     *
+     * @param companyAccount  From BankAccount object
+     * @param employeeAccount To BankAccount object
+     * @param amount Requested amount to transfer.
+     * @param <T> BankAccount class Type of object
+     * @param <U> BigDecimal class Type of object
+     */
     public static <T extends BankAccount, U extends BigDecimal> void transferFund(T companyAccount, T employeeAccount, U amount){
         try {
             companyAccount.subtract(amount);

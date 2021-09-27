@@ -6,6 +6,11 @@ public class Company {
     public BigDecimal basic;
     public BankAccount bankAccount;
 
+    /**
+     *
+     * @param basic Basic salary of the lowest grade
+     * @param bankAccount BankAccount of Company
+     */
     public Company(BigDecimal basic, BankAccount bankAccount) {
         this.basic = basic;
         this.bankAccount = bankAccount;

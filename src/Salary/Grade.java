@@ -5,12 +5,12 @@ package Salary;
  * There are 6 grades/ranks. Grade/Rank ONE is the highest grade/rank and grade/rank SIX is the lowest rank/grade.
  */
 public enum Grade {
-    ONE(6),
-    TWO(5),
-    THREE(4),
+    ONE(5),
+    TWO(4),
+    THREE(3),
     FOUR(3),
-    FIVE(2),
-    SIX(1);
+    FIVE(1),
+    SIX(0);
     private final int gradeValue;
 
     /**
