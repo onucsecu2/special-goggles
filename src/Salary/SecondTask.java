@@ -69,7 +69,7 @@ public class SecondTask {
             try {
                 br.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                ExceptionMod.displayExceptionAbstractLabel(e);
             } catch (NullPointerException e) {
                 ExceptionMod.displayExceptionAbstractLabel(e);
             }
