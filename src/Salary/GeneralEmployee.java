@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 public class GeneralEmployee extends Employee {
     public Grade grade;
     public BigDecimal salary;
+
     /**
      *
      * @param name string name of the employee
@@ -37,7 +38,7 @@ public class GeneralEmployee extends Employee {
      * @return Bigdecimal salary of the employee
      */
     private BigDecimal calculateSalary(Grade grade) {
-        BigDecimal basic = SecondTask.company.basic.add(Company.INCREMENT_PER_GRADE
+        BigDecimal basic = Task.company.basic.add(Company.INCREMENT_PER_GRADE
                 .multiply(new BigDecimal(grade.getGradeValue())));
         return basic.add(basic.multiply(Company.HOUSE_RENT_PERCENTAGE)).add(basic.multiply(Company.MEDICAL_ALLOWANCE_PERCENTAGE));
     }

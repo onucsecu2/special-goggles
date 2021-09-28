@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.InputMismatchException;
 
-public class ExceptionMod<T extends Exception> {
+public class ExceptionHandler<T extends Exception> {
 
     public static <T extends Exception> void displayExceptionAbstractLabel(T exception){
         if(exception instanceof InputMismatchException) {
@@ -15,7 +15,7 @@ public class ExceptionMod<T extends Exception> {
         } else if(exception instanceof BalanceInsufficientException) {
             System.err.println("The requested amount failed to transact due to insufficient balance");
         } else if(exception instanceof FileNotFoundException) {
-            System.err.println("Requested file did not find in the location");
+            System.err.format("Requested file not found in the location %s%n", exception.getLocalizedMessage());
         } else if(exception instanceof FileAlreadyExistsException) {
             System.err.println("File Already exist in the location");
         } else if(exception instanceof IOException) {
