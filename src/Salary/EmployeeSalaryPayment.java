@@ -50,12 +50,12 @@ public class EmployeeSalaryPayment {
      * load 10 employees data as described from a file for convenient
      */
     private static void loadEmployees() {
-        BufferedReader br = null;
+        BufferedReader bufferedReader = null;
         try {
-            br = new BufferedReader(new FileReader("src/Salary/employees.txt"));
+            bufferedReader = new BufferedReader(new FileReader("src/Salary/employees.txt"));
             String line = "";
             String splitBy = ";";
-            while ((line = br.readLine()) != null)
+            while ((line = bufferedReader.readLine()) != null)
             {
                 String[] employee = line.split(splitBy);
                 String name = employee[0];
@@ -84,8 +84,8 @@ public class EmployeeSalaryPayment {
         }
         finally {
             try {
-                if(br != null)
-                    br.close();
+                if(bufferedReader != null)
+                    bufferedReader.close();
             } catch (IOException e) {
                 ExceptionHandler.displayExceptionAbstractLabel(e);
             } catch (NullPointerException e) {
@@ -222,7 +222,7 @@ public class EmployeeSalaryPayment {
         stringBuffer.append(lineSeparator);
 
         String path = "src/Salary/total.csv";
-        writeToFile(path, sb);
+        writeToFile(path, stringBuffer);
     }
 
     /**
