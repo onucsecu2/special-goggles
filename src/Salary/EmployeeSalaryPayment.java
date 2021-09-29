@@ -148,7 +148,7 @@ public class EmployeeSalaryPayment {
      * @throws InputMismatchException Console read expect an int input otherwise can't proceed
      * @throws IndexOutOfBoundsException if the provided index number is out of range of the employee list
      */
-    private static Profile getSpecificProfile() throws InputMismatchException,IndexOutOfBoundsException  {
+    private static Profile getSpecificProfile() throws InputMismatchException, IndexOutOfBoundsException  {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Index Number from the Employee List :");
         int index = input.nextInt();
@@ -164,38 +164,21 @@ public class EmployeeSalaryPayment {
     }
 
     /**
-     * Transfer balance from an account to another account.
-     *
-     * @param companyAccount  From BankAccount object
-     * @param employeeAccount To BankAccount object
-     * @param amount Requested amount to transfer.
-     * @param <T> BankAccount class Type of object
-     * @param <U> BigDecimal class Type of object
-     */
-    public static <T extends BankAccount, U extends BigDecimal> void transferFund(T companyAccount, T employeeAccount, U amount){
-        try {
-            companyAccount.subtract(amount);
-            employeeAccount.addBalance(amount);
-        } catch (BalanceInsufficientException e) {
-            ExceptionHandler.displayExceptionAbstractLabel(e);
-        }
-
-    }
-
-    /**
      * transfer amount from company bank account to employee bank account
      */
     private static void transferFunds () {
 
         try {
             Profile profile = getSpecificProfile();
-            transferFund(company.getBankAccount(), profile.getBankAccount(), profile.getEmployee().getSalary());
+            company.getBankAccount().transferFund(profile.getBankAccount(), profile.getEmployee().getSalary());
         }catch (IndexOutOfBoundsException e){
             ExceptionHandler.displayExceptionAbstractLabel(e);
         }
         catch (InputMismatchException e) {
             ExceptionHandler.displayExceptionAbstractLabel(e);
-        }finally {
+        } catch (BalanceInsufficientException e) {
+            ExceptionHandler.displayExceptionAbstractLabel(e);
+        } finally {
             showCompanyBalance();
         }
     }
@@ -205,7 +188,12 @@ public class EmployeeSalaryPayment {
      */
     private static void transferFundAll() {
         for(Profile profile : profileList) {
-            transferFund(company.getBankAccount(), profile.getBankAccount(), profile.getEmployee().getSalary());
+            try {
+                company.getBankAccount().transferFund(profile.getBankAccount(),
+                        profile.getEmployee().getSalary());
+            } catch (BalanceInsufficientException e) {
+                ExceptionHandler.displayExceptionAbstractLabel(e);
+            }
         }
         showCompanyBalance();
     }
@@ -215,7 +203,7 @@ public class EmployeeSalaryPayment {
      * generate report file of company's current balance and total paid
      */
     private static void generateBalanceReport() {
-        StringBuffer sb = new StringBuffer();
+        StringBuffer stringBuffer = new StringBuffer();
         String separator = ";";
         String lineSeparator = "\n";
         BigDecimal total = BigDecimal.ZERO;
@@ -224,14 +212,14 @@ public class EmployeeSalaryPayment {
             total = total.add(account.queryBalance());
         }
 
-        sb.append("Total Paid");
-        sb.append(separator);
-        sb.append(total);
-        sb.append(lineSeparator);
-        sb.append("Remaining Balance");
-        sb.append(separator);
-        sb.append(company.getBankAccount().queryBalance());
-        sb.append(lineSeparator);
+        stringBuffer.append("Total Paid");
+        stringBuffer.append(separator);
+        stringBuffer.append(total);
+        stringBuffer.append(lineSeparator);
+        stringBuffer.append("Remaining Balance");
+        stringBuffer.append(separator);
+        stringBuffer.append(company.getBankAccount().queryBalance());
+        stringBuffer.append(lineSeparator);
 
         String path = "src/Salary/total.csv";
         writeToFile(path, sb);
@@ -241,33 +229,33 @@ public class EmployeeSalaryPayment {
      *  generate report file of the employees information
      */
     private static void generateEmployeeReport() {
-        StringBuffer sb = new StringBuffer();
+        StringBuffer stringBuffer = new StringBuffer();
         String separator = ";";
         String lineSeparator = "\n";
         for(Profile profile : profileList){
             Employee employee = profile.getEmployee();
-            sb.append(employee.getName());
-            sb.append(separator);
-            sb.append(employee.getGrade());
-            sb.append(separator);
-            sb.append(employee.getSalary());
-            sb.append(lineSeparator);
+            stringBuffer.append(employee.getName());
+            stringBuffer.append(separator);
+            stringBuffer.append(employee.getGrade());
+            stringBuffer.append(separator);
+            stringBuffer.append(employee.getSalary());
+            stringBuffer.append(lineSeparator);
         }
         String path = "src/Salary/employee_report.csv";
-        writeToFile(path, sb);
+        writeToFile(path, stringBuffer);
     }
 
     /**
      * write to a file
      * @param path path of the file
-     * @param sb what to write in the file
+     * @param stringBuffer what to write in the file
      */
-    private static void writeToFile(String path, StringBuffer sb) {
+    private static void writeToFile(String path, StringBuffer stringBuffer) {
         Charset charset = StandardCharsets.US_ASCII;
         BufferedWriter writer = null;
         try {
             writer = Files.newBufferedWriter(Path.of(path), charset);
-            writer.write(String.valueOf(sb), 0, sb.length());
+            writer.write(String.valueOf(stringBuffer), 0, stringBuffer.length());
         } catch (FileAlreadyExistsException e){
             ExceptionHandler.displayExceptionAbstractLabel(e);
         } catch (IOException e) {
@@ -283,7 +271,3 @@ public class EmployeeSalaryPayment {
         System.out.println("Content of StringBuffer written to File.");
     }
 }
-
-
-// TODO : unified bank account for company and employee
-// TODO : add synchronization in transaction

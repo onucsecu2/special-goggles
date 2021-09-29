@@ -49,19 +49,32 @@ public class BankAccount implements Transaction {
         this.currentBalance = currentBalance;
     }
 
+    /**
+     * Transfer balance from an account to another account.
+     *
+     * @param destinationAccount BankAccount object
+     * @param amount Requested amount to transfer.
+     * @param <T> BankAccount class Type of object
+     * @param <U> BigDecimal class Type of object
+     */
+    public <T extends BankAccount, U extends BigDecimal> void transferFund( T destinationAccount, U amount) throws BalanceInsufficientException {
+        this.currentBalance.subtract(amount);
+        destinationAccount.addBalance(amount);
+    }
+
     @Override
-    public BigDecimal queryBalance() {
+    public synchronized BigDecimal queryBalance() {
         return currentBalance;
     }
 
     @Override
-    public BigDecimal addBalance(BigDecimal balance) {
+    public synchronized BigDecimal addBalance(BigDecimal balance) {
         currentBalance = currentBalance.add(balance);
         return currentBalance;
     }
 
     @Override
-    public BigDecimal subtract(BigDecimal amount) throws BalanceInsufficientException {
+    public synchronized BigDecimal subtract(BigDecimal amount) throws BalanceInsufficientException {
         if (currentBalance.compareTo(amount) >= 0){
             currentBalance = currentBalance.subtract(amount);
         }else{
