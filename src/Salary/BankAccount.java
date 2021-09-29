@@ -57,9 +57,11 @@ public class BankAccount implements Transaction {
      * @param <T> BankAccount class Type of object
      * @param <U> BigDecimal class Type of object
      */
-    public <T extends BankAccount, U extends BigDecimal> void transferFund( T destinationAccount, U amount) throws BalanceInsufficientException {
-        this.currentBalance.subtract(amount);
-        destinationAccount.addBalance(amount);
+    public synchronized  <T extends BankAccount, U extends BigDecimal> void transferFund(T destinationAccount, U amount) throws BalanceInsufficientException {
+        synchronized (this) {
+            this.currentBalance.subtract(amount);
+            destinationAccount.addBalance(amount);
+        }
     }
 
     @Override
@@ -75,9 +77,9 @@ public class BankAccount implements Transaction {
 
     @Override
     public synchronized BigDecimal subtract(BigDecimal amount) throws BalanceInsufficientException {
-        if (currentBalance.compareTo(amount) >= 0){
+        if (currentBalance.compareTo(amount) >= 0) {
             currentBalance = currentBalance.subtract(amount);
-        }else{
+        }else {
             throw new BalanceInsufficientException(
                     "Insufficient Balance terminated the proposed transaction with "+ amount
             );
@@ -90,7 +92,7 @@ public class BankAccount implements Transaction {
 /**
  * Custom Exception for insufficient bank balance
  */
-class BalanceInsufficientException extends Exception{
+class BalanceInsufficientException extends Exception {
     public BalanceInsufficientException(String message) {
         super(message);
     }
