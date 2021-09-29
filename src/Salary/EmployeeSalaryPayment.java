@@ -134,7 +134,7 @@ public class EmployeeSalaryPayment {
      *  show the list of the employees
      */
     private static void showEmployeesList() {
-        int index = 0;
+        int index = 1;
         for(Profile profile : profileList) {
             System.out.println(index+". " + profile.getEmployee().getName());
             index++;
@@ -159,9 +159,27 @@ public class EmployeeSalaryPayment {
      *  Display company's current balance in the console after performing transaction operation
      */
     private static void showCompanyBalance() {
-        System.out.println("Remaining Balance : "+company.getBankAccount().queryBalance());
+        System.out.println("Remaining Balance : " + company.getBankAccount().queryBalance());
         System.out.println("----Transfer Completed----");
     }
+
+    /**
+     * Transfer balance from an account to another account.
+     *
+     * @param destinationAccount BankAccount object
+     * @param amount Requested amount to transfer.
+     * @param <T> BankAccount class Type of object
+     * @param <U> BigDecimal class Type of object
+     */
+    public static <T extends BankAccount, U extends BigDecimal> void transferFund(T fromAccount,
+                                                                                  T destinationAccount,
+                                                                                  U amount) throws BalanceInsufficientException {
+        synchronized (fromAccount) {
+            fromAccount.subtract(amount);
+            destinationAccount.addBalance(amount);
+        }
+    }
+
 
     /**
      * transfer amount from company bank account to employee bank account
@@ -170,7 +188,7 @@ public class EmployeeSalaryPayment {
 
         try {
             Profile profile = getSpecificProfile();
-            company.getBankAccount().transferFund(profile.getBankAccount(), profile.getEmployee().getSalary());
+            transferFund(company.getBankAccount(), profile.getBankAccount(), profile.getEmployee().getSalary());
         }catch (IndexOutOfBoundsException e){
             ExceptionHandler.displayExceptionAbstractLabel(e);
         }
@@ -189,7 +207,7 @@ public class EmployeeSalaryPayment {
     private static void transferFundAll() {
         for(Profile profile : profileList) {
             try {
-                company.getBankAccount().transferFund(profile.getBankAccount(),
+                transferFund(company.getBankAccount(), profile.getBankAccount(),
                         profile.getEmployee().getSalary());
             } catch (BalanceInsufficientException e) {
                 ExceptionHandler.displayExceptionAbstractLabel(e);

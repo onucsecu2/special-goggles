@@ -49,20 +49,6 @@ public class BankAccount implements Transaction {
         this.currentBalance = currentBalance;
     }
 
-    /**
-     * Transfer balance from an account to another account.
-     *
-     * @param destinationAccount BankAccount object
-     * @param amount Requested amount to transfer.
-     * @param <T> BankAccount class Type of object
-     * @param <U> BigDecimal class Type of object
-     */
-    public synchronized  <T extends BankAccount, U extends BigDecimal> void transferFund(T destinationAccount, U amount) throws BalanceInsufficientException {
-        synchronized (this) {
-            this.currentBalance.subtract(amount);
-            destinationAccount.addBalance(amount);
-        }
-    }
 
     @Override
     public synchronized BigDecimal queryBalance() {
