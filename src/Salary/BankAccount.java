@@ -1,16 +1,18 @@
 package Salary;
 
+import Salary.Transaction;
+
 import java.math.BigDecimal;
 
-public class BankAccount implements Transaction{
+public class BankAccount implements Transaction {
     public String name, address, accountType, branchName, bankName, accountNumber;
     private BigDecimal currentBalance;
 
     /**
      * Constructor for Employees
-     * @param name name of employee
-     * @param address address of employee
-     * @param accountType account type of employee ie: savings
+     * @param name name of account holder/company
+     * @param address address of account holder/company
+     * @param accountType account type ie: savings
      * @param branchName branch name of bank
      * @param bankName bank name
      * @param accountNumber account number
@@ -27,10 +29,23 @@ public class BankAccount implements Transaction{
     }
 
     /**
-     * Constructor for company bank Account
+     * Constructor for bank Account with given deposit
+     * @param name name of account holder/company
+     * @param address address of account holder/company
+     * @param accountType account type of employee ie: savings
+     * @param branchName branch name of bank
+     * @param bankName bank name
+     * @param accountNumber account number
      * @param currentBalance current balance of the company
      */
-    public BankAccount(BigDecimal currentBalance) {
+    public BankAccount(String name, String address, String accountType,
+                       String branchName, String bankName, String accountNumber, BigDecimal currentBalance) {
+        this.name = name;
+        this.address = address;
+        this.accountType = accountType;
+        this.branchName = branchName;
+        this.bankName = bankName;
+        this.accountNumber = accountNumber;
         this.currentBalance = currentBalance;
     }
 

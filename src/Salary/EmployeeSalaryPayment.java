@@ -16,7 +16,7 @@ import java.util.Scanner;
  * Driver class
  */
 
-public class Task {
+public class EmployeeSalaryPayment {
 
     private static List<Profile> profileList = new ArrayList<>();
     public static Company company;
@@ -38,7 +38,9 @@ public class Task {
         System.out.println("Company Bank Balance: ");
         BigDecimal companyBankBalance = input.nextBigDecimal();
 
-        BankAccount bankAccount = new BankAccount(companyBankBalance);
+        BankAccount bankAccount = new BankAccount("Company.LLC", "Dhaka-1207", "Business",
+                                                "Agargaon", "Standard Chartered",
+                                    "19029394762834", companyBankBalance);
 
         company = new Company(basicSalary, bankAccount);
 
@@ -262,7 +264,7 @@ public class Task {
      */
     private static void writeToFile(String path, StringBuffer sb) {
         Charset charset = StandardCharsets.US_ASCII;
-        BufferedWriter writer =null;
+        BufferedWriter writer = null;
         try {
             writer = Files.newBufferedWriter(Path.of(path), charset);
             writer.write(String.valueOf(sb), 0, sb.length());
@@ -272,7 +274,8 @@ public class Task {
             ExceptionHandler.displayExceptionAbstractLabel(e);
         } finally {
             try {
-                writer.close();
+                if(writer != null)
+                    writer.close();
             } catch (IOException e) {
                 ExceptionHandler.displayExceptionAbstractLabel(e);
             }
@@ -280,3 +283,7 @@ public class Task {
         System.out.println("Content of StringBuffer written to File.");
     }
 }
+
+
+// TODO : unified bank account for company and employee
+// TODO : add synchronization in transaction

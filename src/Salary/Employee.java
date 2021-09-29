@@ -1,5 +1,7 @@
 package Salary;
 
+import Salary.Grade;
+
 import java.math.BigDecimal;
 
 abstract class Employee {

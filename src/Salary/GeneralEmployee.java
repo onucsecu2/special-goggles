@@ -1,4 +1,7 @@
 package Salary;
+import Salary.EmployeeSalaryPayment;
+import Salary.Grade;
+
 import java.math.BigDecimal;
 
 public class GeneralEmployee extends Employee {
@@ -38,7 +41,7 @@ public class GeneralEmployee extends Employee {
      * @return Bigdecimal salary of the employee
      */
     private BigDecimal calculateSalary(Grade grade) {
-        BigDecimal basic = Task.company.basic.add(Company.INCREMENT_PER_GRADE
+        BigDecimal basic = EmployeeSalaryPayment.company.basic.add(Company.INCREMENT_PER_GRADE
                 .multiply(new BigDecimal(grade.getGradeValue())));
         return basic.add(basic.multiply(Company.HOUSE_RENT_PERCENTAGE)).add(basic.multiply(Company.MEDICAL_ALLOWANCE_PERCENTAGE));
     }

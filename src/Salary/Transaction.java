@@ -1,5 +1,6 @@
 package Salary;
 
+
 import java.math.BigDecimal;
 
 interface Transaction <T extends BigDecimal> {
@@ -8,7 +9,7 @@ interface Transaction <T extends BigDecimal> {
      *
      * @return current balance from the account
      */
-    BigDecimal queryBalance();
+    BigDecimal  queryBalance();
 
     /**
      * add a amount to the account
